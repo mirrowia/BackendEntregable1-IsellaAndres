@@ -5,20 +5,24 @@ class ProductManager {
 
   addProduct(product) {
     if (!this.isProductValid(product)) {
-      console.log("Error: El producto no es valido.");
-      return;
+      return console.log("Product is  not valid");
     }
-    if (this.codeDuplicate(product.code)) {
-      console.log("Error: El codigo del producto ya esta siendo utilizado.");
+    if (this.isCodeDuplicate(product.code)) {
+      return console.log("Product code already in use");
     }
 
     product.id = this.id;
     this.id += 1;
     this.products.push(product);
+    return "Product added";
   }
 
   getProducts() {
-    return this.producs;
+    if (this.products.length > 0) {
+      return this.products;
+    } else {
+      return "There are no products currently listed";
+    }
   }
 
   getProductById(id) {
@@ -26,7 +30,7 @@ class ProductManager {
     if (product) {
       return product;
     } else {
-      console.log(`${product} Not found`);
+      return `Not found`;
     }
   }
 
@@ -47,3 +51,41 @@ class ProductManager {
 }
 
 const productManager = new ProductManager();
+
+console.log(productManager.getProducts());
+
+productManager.addProduct({
+  title: "Pear",
+  description: "Bartlett Pear",
+  price: 450,
+  thumbnail:
+    "https://media.istockphoto.com/id/177757631/es/foto/peras-una.jpg?s=612x612&w=0&k=20&c=LASij9dXAH_a_0qBL0ybqNqAD1jX5u4WuFQmzboFYRA=",
+  code: "#E9FF30",
+  stock: 230,
+});
+
+productManager.addProduct({
+  title: "Apple",
+  description: "Granny Smith Apple",
+  price: 470,
+  thumbnail:
+    "https://gastronomiaycia.republica.com/wp-content/uploads/2010/09/granny_smith.jpg",
+  code: "#92E120",
+  stock: 110,
+});
+
+productManager.addProduct({
+  title: "Orange",
+  description: "Salustiana Orange",
+  price: 380,
+  thumbnail:
+    "https://serenaoranges.com/wp-content/uploads/2019/03/SALUSTIANA.jpg",
+  code: "#F49F1C",
+  stock: 350,
+});
+
+console.log(productManager.getProducts());
+
+console.log(productManager.getProductById(6));
+
+console.log(productManager.getProductById(3));
